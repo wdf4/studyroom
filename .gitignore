@@ -1,0 +1,26 @@
+# Dependencies
+StudyRoom/StudyRoom.elementui/node_modules/
+
+# Build outputs
+StudyRoom/StudyRoom.elementui/dist/
+StudyRoom/StudyRoom.springboot/target/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# MySQL data (local)
+mysql_data/
