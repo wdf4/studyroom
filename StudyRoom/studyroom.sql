@@ -42,7 +42,7 @@ CREATE TABLE `room` (
   CONSTRAINT `room_ibfk_1` FOREIGN KEY (`CreatorId`) REFERENCES `appuser` (`Id`) ON DELETE SET NULL ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
-INSERT INTO `room` VALUES (1, NOW(), 1, '静心自习室', NULL, '图书馆3楼A区', '<p>安静舒适的自习环境，配备空调和Wi-Fi</p>', 3);
+INSERT INTO `room` VALUES (1, NOW(), 1, '小鹏自习室', NULL, '图书馆3楼A区', '<p>安静舒适的自习环境，配备空调和Wi-Fi</p>', 3);
 
 -- ----------------------------
 -- 座位表

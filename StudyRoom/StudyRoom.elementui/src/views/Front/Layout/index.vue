@@ -8,7 +8,7 @@
                         <img style="height: 50px;object-fit: contain;" :src="require('@/assets/logo.jpg')">
                     </el-menu-item>
 
-                    <el-menu-item index="/Front/Home" @click="ToPath('/Front/Home')">志高自习室预约</el-menu-item>
+                    <el-menu-item index="/Front/Home" @click="ToPath('/Front/Home')">小鹏自习室预约</el-menu-item>
 
                     <el-menu-item style="float: right;" v-if="!Token" @click="ToRegister()">注册</el-menu-item>
                     <el-menu-item style="float: right;" v-if="!Token" @click="ToLogin()">登录</el-menu-item>
@@ -33,7 +33,7 @@
             </el-main>
             <div style="height: 20px;"></div>
             <el-footer style="background-color:#28b2d4">
-                <div style="text-align: center;color:white;font-weight: bolder;">系统归 志高自习室预约所有</div>
+                <div style="text-align: center;color:white;font-weight: bolder;">系统归 小鹏自习室预约所有</div>
             </el-footer>
         </el-container>
 
