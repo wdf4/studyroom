@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-card class="box-card margin-top-lg">
+        <el-card class="box-card margin-top-lg" v-loading="loadingDataCollect">
             <div slot="header" class="clearfix">
                 <span>数据统计</span>
 
@@ -33,10 +33,11 @@
                     <div class="num">{{ DataCollect.TotalIntegral }}</div>
                 </div>
             </div>
+            <el-empty v-if="DataCollect == null && !loadingDataCollect" description="暂无数据"></el-empty>
         </el-card>
 
 
-        <el-card class="box-card margin-top-lg">
+        <el-card class="box-card margin-top-lg" v-loading="loadingChart">
             <div slot="header" class="clearfix">
                 <span>今日每个自习室早中晚的使用率(%)</span>
 
@@ -80,7 +81,9 @@ export default {
     },
     data() {
         return {
-            DataCollect: null
+            DataCollect: null,
+            loadingDataCollect: false,
+            loadingChart: false,
         };
     },
     created() {
@@ -89,12 +92,18 @@ export default {
     mounted() {
         this.GetAppointRoomUseRate();
         this.GetDataCollect();
-
     },
     methods: {
         //统计早中晚每个自习室的使用率&空闲率
         async GetAppointRoomUseRate() {
-            let { Data } = await this.$Post('/AppointRecord/GetAppointRoomUseRate', {});
+            this.loadingChart = true;
+            let Data;
+            try {
+                let res = await this.$Post('/AppointRecord/GetAppointRoomUseRate', {});
+                Data = res.Data;
+            } finally {
+                this.loadingChart = false;
+            }
 
             let myChart = echarts.init(document.getElementById("echartDiv"));// 图标初始化
 
@@ -153,29 +162,26 @@ export default {
                     {
                         name: '上午',
                         type: 'bar',
+                        itemStyle: { borderRadius: [4, 4, 0, 0] },
                         barGap: 0,
                         label: labelOption,
-                        emphasis: {
-                            focus: 'series'
-                        },
+                        emphasis: { focus: 'series' },
                         data: Data.map(x => x.AmUseRate)
                     },
                     {
                         name: '下午',
                         type: 'bar',
+                        itemStyle: { borderRadius: [4, 4, 0, 0] },
                         label: labelOption,
-                        emphasis: {
-                            focus: 'series'
-                        },
+                        emphasis: { focus: 'series' },
                         data: Data.map(x => x.PmUseRate)
                     },
                     {
                         name: '夜晚',
                         type: 'bar',
+                        itemStyle: { borderRadius: [4, 4, 0, 0] },
                         label: labelOption,
-                        emphasis: {
-                            focus: 'series'
-                        },
+                        emphasis: { focus: 'series' },
                         data: Data.map(x => x.NmUseRate)
                     },
 
@@ -190,9 +196,13 @@ export default {
         },
         //统计各类数据到看板
         async GetDataCollect() {
-            let { Data } = await this.$Post('/AppointRecord/GetDataCollect', {});
-            this.DataCollect = Data;
-
+            this.loadingDataCollect = true;
+            try {
+                let { Data } = await this.$Post('/AppointRecord/GetDataCollect', {});
+                this.DataCollect = Data;
+            } finally {
+                this.loadingDataCollect = false;
+            }
         }
     }
 }       
@@ -208,43 +218,27 @@ export default {
 
 .board-list .board-item {
     text-align: center;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 24px 20px;
+    border-radius: 12px;
     color: white;
     margin-right: 20px;
     width: 180px;
-
+    box-shadow: var(--shadow-md);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.board-list .board-item:nth-child(1) {
-    background-color: rgb(10, 146, 146);
+.board-list .board-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
 }
 
-.board-list .board-item:nth-child(2) {
-    background-color: rgb(115, 48, 160);
-}
-
-.board-list .board-item:nth-child(3) {
-    background-color: rgb(247, 173, 37);
-}
-
-.board-list .board-item:nth-child(4) {
-    background-color: rgb(39, 204, 141);
-}
-
-.board-list .board-item:nth-child(5) {
-    background-color: rgb(182, 32, 162);
-}
-
-.board-list .board-item:nth-child(6) {
-    background-color: rgb(163, 40, 77);
-}
-
-.board-list .board-item:nth-child(7) {
-    background-color: rgb(79, 72, 168);
-}
-
-.board-list .board-item .tit {}
+.board-list .board-item:nth-child(1) { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.board-list .board-item:nth-child(2) { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+.board-list .board-item:nth-child(3) { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.board-list .board-item:nth-child(4) { background: linear-gradient(135deg, #10b981, #059669); }
+.board-list .board-item:nth-child(5) { background: linear-gradient(135deg, #ec4899, #db2777); }
+.board-list .board-item:nth-child(6) { background: linear-gradient(135deg, #f43f5e, #e11d48); }
+.board-list .board-item:nth-child(7) { background: linear-gradient(135deg, #6366f1, #4f46e5); }
 
 .board-list .board-item .num {
     margin-top: 10px;

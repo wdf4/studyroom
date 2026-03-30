@@ -12,7 +12,6 @@
 
 <script>
 import { ReplaceImageHttp, GetFileNameByPath } from "@/utils/comm.js";
-import store from "@/store";
 export default {
     name: "UploadImages",
     props: {

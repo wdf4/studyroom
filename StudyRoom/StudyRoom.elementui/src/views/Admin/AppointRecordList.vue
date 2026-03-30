@@ -1,12 +1,15 @@
 <template>
     <div class="app-container">
         <el-card class="box-card">
-            <div slot="header" class="clearfix">
-                <el-button type="primary" size="mini" icon="el-icon-search" @click="SearchClick">搜 索</el-button>
-                <el-button type="warning" size="mini" @click="ResetClick" icon="el-icon-s-promotion">重 置</el-button>
+            <div slot="header" class="filter-header">
+                <span class="filter-title">预约记录管理</span>
+                <div class="filter-actions">
+                    <el-button type="primary" size="mini" icon="el-icon-search" @click="SearchClick">搜 索</el-button>
+                    <el-button type="warning" size="mini" @click="ResetClick" icon="el-icon-s-promotion">重 置</el-button>
+                </div>
             </div>
             <div class="tb-body">
-                <el-form ref="searchFormRef" :model="searchForm" :inline="true" label-width="120px" :style="`flex:1;`">
+                <el-form ref="searchFormRef" :model="searchForm" :inline="true" label-width="120px" >
                     <el-form-item label="流水编号" prop="NoLike">
                         <el-input v-model.trim="searchForm.NoLike" placeholder="请输入流水编号" :clearable="true"></el-input>
                     </el-form-item>
@@ -59,7 +62,7 @@
             height="800px">
             <el-form v-if="editorShow == true" ref="editModalForm" :rules="editModalFormRules" :model="formData"
                 label-width="140px" size="mini">
-                <el-row :gutter="10" class="EditFromBody" style="  height: 600px;overflow-y: scroll">
+                <el-row :gutter="10" class="EditFromBody dialog-scroll-body">
                     <el-col :span="24">
                         <el-form-item label="流水编号" prop="No">
                             <el-input type="text" v-model.trim="formData.No" placeholder="请输入流水编号"
@@ -323,7 +326,7 @@ export default {
     methods: {
         //修改属性
         async UpdateEntityAsync(Id, title, data) {
-            let { Data } = await this.$PostSigleUpdate(`/AppointRecord/Get`, `/AppointRecord/CreateOrEdit`, Id, title, data);
+            await this.$PostSigleUpdate(`/AppointRecord/Get`, `/AppointRecord/CreateOrEdit`, Id, title, data);
 
             this.$refs.PaginationTableId.Reload(this.searchForm);
         },
@@ -394,3 +397,9 @@ export default {
     },
 };
 </script>
+<style scoped>
+.dialog-scroll-body {
+  max-height: 520px;
+  overflow-y: auto;
+}
+</style>

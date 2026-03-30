@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
  */
 @NoArgsConstructor
 @Data
+@lombok.EqualsAndHashCode(callSuper = true)
 public class SeatPagedInput extends PagedInput {
 
     /**

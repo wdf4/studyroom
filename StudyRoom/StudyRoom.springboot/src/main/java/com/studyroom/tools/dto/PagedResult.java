@@ -15,9 +15,9 @@ public class PagedResult<T> {
     private List<T> Items;
 
 
-    public static  PagedResult GetInstance(List items,Long totalCount)
+    public static <T> PagedResult<T> GetInstance(List<T> items, Long totalCount)
     {
-        PagedResult tPagedReuslt = new PagedResult<>();
+        PagedResult<T> tPagedReuslt = new PagedResult<>();
         tPagedReuslt.setItems(items);
         tPagedReuslt.setTotalCount(totalCount);
         return tPagedReuslt;

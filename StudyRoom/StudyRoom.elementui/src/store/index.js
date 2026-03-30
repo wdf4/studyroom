@@ -70,7 +70,7 @@ const store = new Vuex.Store({
         },
 
         // 根据token获取用户的信息
-        async GetInfo({ commit, state }) {
+        async GetInfo({ commit }) {
             let res = await Post("/User/GetByToken", {});
 
             commit("SET_USER_INFO", res.Data);
@@ -79,7 +79,7 @@ const store = new Vuex.Store({
         },
 
         //退出登录
-        async Logout({ commit }, UserInfo) {
+        async Logout({ commit }) {
 
             removeToken();
             commit('SET_TOKEN', null);

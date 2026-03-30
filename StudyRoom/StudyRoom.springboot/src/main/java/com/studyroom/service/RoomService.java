@@ -4,11 +4,7 @@ import com.studyroom.dto.*;
 import com.studyroom.dto.query.*;
 import com.studyroom.entity.*;
 import com.studyroom.tools.dto.*;
-import com.studyroom.enums.*;
-import java.lang.reflect.InvocationTargetException;
-import org.springframework.web.bind.annotation.RequestParam;
-import java.io.IOException;
-import jakarta.servlet.http.HttpServletResponse;
+
 /**
  * 自习室功能的Service接口的定义清单
  */

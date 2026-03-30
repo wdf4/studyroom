@@ -1,7 +1,16 @@
 <template>
-    <div class="app-container">
-        <el-page-header class="card margin-top-lg" @back="goBack" :content="'我的总积分 ' + MyIntegralData.TotalIntegral">
-        </el-page-header>
+  <div class="app-container">
+    <!-- 积分平台点数卡片 -->
+    <div class="integral-banner margin-top-lg">
+      <div class="banner-left">
+        <i class="el-icon-star-off banner-icon"></i>
+        <div>
+          <p class="banner-label">我的总积分</p>
+          <p class="banner-value">{{ MyIntegralData.TotalIntegral }}</p>
+        </div>
+      </div>
+      <el-button type="text" size="small" @click="goBack" class="back-link">← 返回</el-button>
+    </div>
 
 
         <el-card class="box-card margin-top-lg">
@@ -10,7 +19,7 @@
                 <el-button type="warning" size="mini" @click="ResetClick" icon="el-icon-s-promotion">重 置</el-button>
             </div>
             <div class="tb-body">
-                <el-form ref="searchFormRef" :model="searchForm" :inline="true" label-width="120px" :style="`flex:1;`">
+                <el-form ref="searchFormRef" :model="searchForm" :inline="true" label-width="120px" >
                     <el-form-item label="标题" prop="TitleLike">
                         <el-input v-model.trim="searchForm.TitleLike" placeholder="请输入标题" :clearable="true"></el-input>
                     </el-form-item>
@@ -140,7 +149,7 @@ export default {
         async OverdueTimesClear() {
             let confirm = await this.$comm.ConfirmMessageBox({ content: "你确定要用积分清空逾期次数吗?" })
             if (confirm) {
-                let { Data } = await this.$Post("/Integral/OverdueTimesClear", {})
+                await this.$Post("/Integral/OverdueTimesClear", {})
                 this.GetMyIntegralData();
                 this.$refs.PaginationTableId.Reload(this.searchForm);
             }
@@ -152,3 +161,53 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.integral-banner {
+  background: linear-gradient(135deg, #1e293b, #2563eb);
+  border-radius: 16px;
+  padding: 28px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+}
+
+.banner-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.banner-icon {
+  font-size: 48px;
+  opacity: 0.85;
+}
+
+.banner-label {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.75;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.banner-value {
+  margin: 4px 0 0;
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.back-link {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 14px !important;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: white !important;
+}
+</style>

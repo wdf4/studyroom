@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor
 @Data
+@lombok.EqualsAndHashCode(callSuper = true)
 public class RoomPagedInput extends PagedInput {
 
     /**

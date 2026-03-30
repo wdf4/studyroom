@@ -135,7 +135,7 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements Ro
 
 
         //返回一个分页结构给前端
-        return PagedResult.GetInstance(items, totalCount);
+        return PagedResult.<RoomDto>GetInstance(items, totalCount);
 
     }
 

@@ -14,6 +14,7 @@ import java.lang.reflect.InvocationTargetException;
  * 积分表
  */
 @Data
+@lombok.EqualsAndHashCode(callSuper = true)
 @TableName("`Integral`")
 public class Integral extends BaseEntity {
 
@@ -22,35 +23,35 @@ public class Integral extends BaseEntity {
      * 标题
      */
     @JsonProperty("Title")
-    @TableField(value = "Title", updateStrategy = FieldStrategy.IGNORED)
+    @TableField(value = "Title", updateStrategy = FieldStrategy.ALWAYS)
     private String Title;
 
     /**
      * 用户
      */
     @JsonProperty("UserId")
-    @TableField(value = "UserId", updateStrategy = FieldStrategy.IGNORED)
+    @TableField(value = "UserId", updateStrategy = FieldStrategy.ALWAYS)
     private Integer UserId;
 
     /**
      * 积分值
      */
     @JsonProperty("IntegralValue")
-    @TableField(value = "IntegralValue", updateStrategy = FieldStrategy.IGNORED)
+    @TableField(value = "IntegralValue", updateStrategy = FieldStrategy.ALWAYS)
     private Integer IntegralValue;
 
     /**
      * 来源
      */
     @JsonProperty("Source")
-    @TableField(value = "Source", updateStrategy = FieldStrategy.IGNORED)
+    @TableField(value = "Source", updateStrategy = FieldStrategy.ALWAYS)
     private String Source;
 
     /**
      * 关联号
      */
     @JsonProperty("RelativeCode")
-    @TableField(value = "RelativeCode", updateStrategy = FieldStrategy.IGNORED)
+    @TableField(value = "RelativeCode", updateStrategy = FieldStrategy.ALWAYS)
     private String RelativeCode;
 
     /**

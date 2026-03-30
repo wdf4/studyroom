@@ -18,8 +18,6 @@
 
 <script>
 
-import store from "@/store";
-import { mapGetters } from "vuex";
 export default {
 
     props: {

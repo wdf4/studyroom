@@ -4,15 +4,7 @@ import com.studyroom.dto.*;
 import com.studyroom.dto.query.*;
 import com.studyroom.entity.*;
 import com.studyroom.tools.dto.*;
-import com.studyroom.enums.*;
-import java.lang.reflect.InvocationTargetException;
-
-import lombok.SneakyThrows;
-import org.springframework.web.bind.annotation.RequestParam;
-import java.io.IOException;
 import java.util.List;
-
-import jakarta.servlet.http.HttpServletResponse;
 /**
  * 积分功能的Service接口的定义清单
  */
@@ -56,7 +48,6 @@ public interface IntegralService extends IService<Integral> {
     /**
      * 统计最近30天积分的消耗量和获取量折线图
      */
-    @SneakyThrows
     List<Object> GetIntegralConsumeAndGainChart();
     /**
      * 系统整点总送积分

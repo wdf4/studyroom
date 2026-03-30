@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary:      #2563eb;
+  --primary-light:#3b82f6;
+  --primary-glow: rgba(37, 99, 235, 0.15);
+  --navy:         #0f172a;
+  --navy-mid:     #1e293b;
+  --slate-700:    #334155;
+  --slate-500:    #64748b;
+  --slate-400:    #94a3b8;
+  --slate-200:    #e2e8f0;
+  --slate-100:    #f1f5f9;
+  --slate-50:     #f8fafc;
+  --white:        #ffffff;
+  --border-color: #e2e8f0;
+  --success:      #16a34a;
+  --danger:       #dc2626;
+  --warning:      #d97706;
+  --radius-sm:    4px;
+  --radius-md:    8px;
+  --radius-lg:    12px;
+  --radius-xl:    16px;
+  --shadow-xs:    0 1px 2px rgba(0,0,0,.05);
+  --shadow-sm:    0 2px 4px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:    0 4px 6px -1px rgba(0,0,0,.08), 0 2px 4px -2px rgba(0,0,0,.04);
+  --shadow-lg:    0 10px 15px -3px rgba(0,0,0,.08), 0 4px 6px -4px rgba(0,0,0,.04);
+  --shadow-xl:    0 20px 25px -5px rgba(0,0,0,.08), 0 8px 10px -6px rgba(0,0,0,.04);
+}
+
+body {
+  font-family: 'Inter', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--slate-50);
+  color: var(--navy-mid);
+}
+
+/* === Buttons === */
+.el-button {
+  border-radius: var(--radius-md) !important;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.el-button--primary {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.el-button--primary:hover {
+  background-color: var(--primary-light) !important;
+  border-color: var(--primary-light) !important;
+  box-shadow: 0 4px 14px var(--primary-glow);
+  transform: translateY(-1px);
+}
+
+/* Card Modern Style */
+.el-card {
+  border-radius: var(--radius-lg) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.el-card:hover {  
+  box-shadow: var(--shadow-md) !important;
+}
+
+.el-card__header {
+  border-bottom: 1px solid var(--border-color) !important;
+  font-weight: 600;
+}
+
+/* === Inputs & Forms === */
+.el-input__inner,
+.el-textarea__inner {
+  border-radius: var(--radius-md) !important;
+  border-color: var(--slate-200) !important;
+  background-color: var(--white) !important;
+  color: var(--navy-mid);
+  transition: all 0.2s ease;
+}
+
+.el-input__inner:focus,
+.el-textarea__inner:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px var(--primary-glow) !important;
+}
+
+.el-form-item__label {
+  font-weight: 500;
+  color: var(--slate-700);
+}
+
+/* Dropdowns and Menus */
+.el-menu {
+  border-right: none !important;
+}
+.el-submenu__title:hover,
+.el-menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* === Table styling === */
+.el-table {
+  border-radius: var(--radius-md) !important;
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.el-table th, .el-table__fixed-header-wrapper thead div {
+  background-color: var(--slate-50) !important;
+  color: var(--slate-500);
+  font-weight: 600;
+  border-bottom: 2px solid var(--slate-200) !important;
+  padding: 14px 0;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.el-table td {
+  border-bottom: 1px solid var(--slate-100) !important;
+  padding: 14px 0;
+  color: var(--navy-mid);
+}
+
+.el-table tbody tr:hover > td {
+  background-color: #f0f6ff !important;
+}
+
+.el-table, .el-table th, .el-table td {
+  border-right: none !important;
+  border-left:  none !important;
+}
+.el-table::before {
+  display: none;
+}
+
+/* === Dialogs === */
+.el-dialog {
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-xl) !important;
+  overflow: hidden;
+}
+.el-dialog__header {
+  border-bottom: none !important;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--navy-mid);
+  padding: 24px 24px 12px !important;
+}
+.el-dialog__body {
+  padding: 8px 24px 20px;
+}
+.el-dialog__footer {
+  border-top: 1px solid var(--slate-100);
+  padding: 16px 24px;
+  background: var(--slate-50);
+}
+.v-modal {
+  backdrop-filter: blur(5px);
+  background: rgba(15, 23, 42, 0.55) !important;
+}
+
+/* Pagination */
+.el-pagination.is-background .btn-next, 
+.el-pagination.is-background .btn-prev, 
+.el-pagination.is-background .el-pager li {
+  border-radius: var(--radius-md) !important;
+}
+
+/* Tag overrides */
+.el-tag {
+  border-radius: 6px !important; 
+  font-weight: 600;
+  border: none !important;
+  padding: 0 12px;
+  height: 28px;
+  line-height: 28px;
+}
+.el-tag--success {
+  background-color: #dcfce7 !important;
+  color: #166534 !important;
+}
+.el-tag--warning {
+  background-color: #fef9c3 !important;
+  color: #854d0e !important;
+}
+.el-tag--danger {
+  background-color: #fee2e2 !important;
+  color: #991b1b !important;
+}
+.el-tag--info {
+  background-color: #f1f5f9 !important;
+  color: #475569 !important;
+}
+
+/* Full page transitions */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* === Filter / Search card header === */
+.filter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.filter-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy-mid);
+  letter-spacing: 0.01em;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* === Page header utility === */
+.page-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy-mid);
+  margin: 0;
+}

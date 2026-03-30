@@ -17,8 +17,8 @@ public class ResponseData<T> {
      *得到一个响应的实例
      * @return
      */
-    public static ResponseData GetResponseDataInstance(Object data,String msg,Boolean success) {
-        ResponseData responseData = new ResponseData();
+    public static <T> ResponseData<T> GetResponseDataInstance(T data,String msg,Boolean success) {
+        ResponseData<T> responseData = new ResponseData<>();
         responseData.setSuccess(success);
         responseData.setData(data);
         responseData.setMsg(msg);
@@ -29,8 +29,8 @@ public class ResponseData<T> {
      * 响应一个没有消息体成功
      * @return
      */
-    public static ResponseData OfSuccess() {
-        ResponseData responseData = new ResponseData();
+    public static <T> ResponseData<T> OfSuccess() {
+        ResponseData<T> responseData = new ResponseData<>();
         responseData.setSuccess(true);
         responseData.setMsg("成功");
         responseData.setCode(SysConst.STATUS_200);

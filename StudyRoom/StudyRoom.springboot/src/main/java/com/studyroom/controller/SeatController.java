@@ -3,7 +3,7 @@ package com.studyroom.controller;
 import com.studyroom.dto.SeatArrange;
 import com.studyroom.dto.SeatDto;
 import com.studyroom.dto.query.SeatPagedInput;
-import com.studyroom.mapper.SeatMapper;
+
 import com.studyroom.service.SeatService;
 import com.studyroom.tools.dto.IdInput;
 import com.studyroom.tools.dto.IdsInput;
@@ -27,8 +27,6 @@ import java.util.List;
 public class SeatController {
     @Autowired()
     private SeatService _SeatService;
-    @Autowired()
-    private SeatMapper _SeatMapper;
 
     /**
      * 座位分页查询

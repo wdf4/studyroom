@@ -6,7 +6,7 @@ import { Message } from "element-ui";
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // 请求的url地址
-  // withCredentials: true, // send cookies when cross-domain requests
+  withCredentials: true, // 跨域携带 Cookie（Session验证码需要）
   timeout: 50000, //请求超时时间
 });
 
@@ -59,7 +59,7 @@ service.interceptors.response.use(
   },
   (error) => {
     //如果网络错误就是后端没有启动
-    if (error.message.indexOf("Network Error") != -1) {
+    if (error.message.indexOf("Network Error") !== -1) {
       Message({
         message: "后端服务没有启动",
         type: "error",

@@ -139,9 +139,6 @@ export default {
             this.makeCode(this.identifyCodes, 4)
             this.drawPic()
         },
-        randomNum(min, max) {
-            return Math.floor(Math.random() * (max - min) + min)
-        },
         makeCode(o, l) {
             for (let i = 0; i < l; i++) {
                 this.identifyCode += this.identifyCodes[

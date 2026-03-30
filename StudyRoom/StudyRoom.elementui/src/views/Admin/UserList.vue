@@ -2,27 +2,24 @@
     <div>
 
         <el-card class="box-card">
-            <div slot="header" class="clearfix">
-
-                <el-row>
-                    <el-button type="primary" size="mini" @click="SearchClick">查询</el-button>
-                    <el-button type="warning" size="mini" @click="ResetClick">清空条件</el-button>
-
-                </el-row>
+            <div slot="header" class="filter-header">
+                <span class="filter-title">用户管理</span>
+                <div class="filter-actions">
+                    <el-button type="primary" size="mini" icon="el-icon-search" @click="SearchClick">搜 索</el-button>
+                    <el-button type="warning" size="mini" @click="ResetClick" icon="el-icon-s-promotion">重 置</el-button>
+                </div>
             </div>
-            <div>
-                <el-form :inline="true" :model="searchForm" class="demo-form-inline">
+            <div class="tb-body">
+                <el-form :inline="true" :model="searchForm" ref="searchFormRef" label-width="100px">
                     <el-form-item label="姓名">
-                        <el-input v-model="searchForm.Name" placeholder="请输入姓名"></el-input>
+                        <el-input v-model="searchForm.Name" placeholder="请输入姓名" :clearable="true"></el-input>
                     </el-form-item>
                     <el-form-item label="邮箱">
-                        <el-input v-model="searchForm.Eamil" placeholder="请输入邮箱"></el-input>
+                        <el-input v-model="searchForm.Eamil" placeholder="请输入邮箱" :clearable="true"></el-input>
                     </el-form-item>
                     <el-form-item label="手机号码">
-                        <el-input v-model="searchForm.PhoneNumber" placeholder="请输入手机号码"></el-input>
+                        <el-input v-model="searchForm.PhoneNumber" placeholder="请输入手机号码" :clearable="true"></el-input>
                     </el-form-item>
-
-
                 </el-form>
             </div>
         </el-card>
@@ -135,12 +132,7 @@ export default {
 
                 },
 
-                {
-                    key: "Password",
-                    title: "密码",
-                    type: store.getters.ColumnType.SHORTTEXT,
 
-                },
                 {
                     key: "Email",
                     title: "邮箱",

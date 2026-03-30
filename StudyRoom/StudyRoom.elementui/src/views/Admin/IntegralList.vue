@@ -1,12 +1,15 @@
 <template>
     <div class="app-container">
         <el-card class="box-card">
-            <div slot="header" class="clearfix">
-                <el-button type="primary" size="mini" icon="el-icon-search" @click="SearchClick">搜 索</el-button>
-                <el-button type="warning" size="mini" @click="ResetClick" icon="el-icon-s-promotion">重 置</el-button>
+            <div slot="header" class="filter-header">
+                <span class="filter-title">积分管理</span>
+                <div class="filter-actions">
+                    <el-button type="primary" size="mini" icon="el-icon-search" @click="SearchClick">搜 索</el-button>
+                    <el-button type="warning" size="mini" @click="ResetClick" icon="el-icon-s-promotion">重 置</el-button>
+                </div>
             </div>
             <div class="tb-body">
-                <el-form ref="searchFormRef" :model="searchForm" :inline="true" label-width="120px" :style="`flex:1;`">
+                <el-form ref="searchFormRef" :model="searchForm" :inline="true" label-width="120px" >
                     <el-form-item label="标题" prop="TitleLike">
                         <el-input v-model.trim="searchForm.TitleLike" placeholder="请输入标题" :clearable="true"></el-input>
                     </el-form-item>
@@ -176,7 +179,7 @@ export default {
     methods: {
         //修改属性
         async UpdateEntityAsync(Id, title, data) {
-            let { Data } = await this.$PostSigleUpdate(`/Integral/Get`, `/Integral/CreateOrEdit`, Id, title, data);
+            await this.$PostSigleUpdate(`/Integral/Get`, `/Integral/CreateOrEdit`, Id, title, data);
 
             this.$refs.PaginationTableId.Reload(this.searchForm);
         },

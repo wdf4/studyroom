@@ -1,44 +1,62 @@
 <template>
-    <div>
-
-        <el-card class="margin-top-sm">
-            <div slot="header" class="clearfix">
-                <h2>修改个人信息</h2>
-            </div>
-            <div>
-                <el-form ref="editModalForm" v-if="editShow == true" :model="formData" label-width="80px" size="mini"
-                    :rules="rules">
-                    <el-form-item label="账号" prop="UserName">
-                        <el-input v-model="formData.UserName" clearable :disabled="true"></el-input>
-                    </el-form-item>
-
-                    <el-form-item label="邮箱" prop="Email">
-                        <el-input v-model="formData.Email" clearable> </el-input>
-                    </el-form-item>
-                    <el-form-item label="名称" prop="Name">
-                        <el-input v-model="formData.Name" clearable></el-input>
-                    </el-form-item>
-                    <el-form-item label="手机号码" prop="PhoneNumber">
-                        <el-input v-model="formData.PhoneNumber" clearable></el-input>
-                    </el-form-item>
-                    <el-form-item label="头像" prop="ImageUrls">
-                        <UploadImages v-model="formData.ImageUrls"></UploadImages>
-                    </el-form-item>
-
-                    <el-form-item label="出生年月" prop="Birth">
-                        <el-date-picker type="date" value-format="yyyy-MM-dd 00:00:00" placeholder="选择日期"
-                            v-model="formData.Birth" clearable></el-date-picker>
-                    </el-form-item>
-
-
-
-                </el-form>
-                <div style="display: flex;justify-content: flex-end;">
-                    <el-button type="primary" @click="CreateOrEdit">确 定</el-button>
+    <div class="person-container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="avatar-area">
+                    <img v-if="formData.ImageUrls" :src="formData.ImageUrls" class="user-avatar" />
+                    <div v-else class="user-avatar avatar-placeholder">
+                        <i class="el-icon-user"></i>
+                    </div>
+                </div>
+                <div class="profile-meta">
+                    <h2 class="username">{{ formData.Name || formData.UserName }}</h2>
+                    <p class="usersub">{{ formData.UserName }}</p>
                 </div>
             </div>
-        </el-card>
 
+            <el-divider></el-divider>
+
+            <el-form ref="editModalForm" v-if="editShow == true" :model="formData" label-width="90px" size="medium"
+                :rules="rules" class="profile-form">
+                <el-row :gutter="24">
+                    <el-col :span="12">
+                        <el-form-item label="账号" prop="UserName">
+                            <el-input v-model="formData.UserName" clearable :disabled="true" prefix-icon="el-icon-user"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="姓名" prop="Name">
+                            <el-input v-model="formData.Name" clearable prefix-icon="el-icon-s-custom"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="邮箱" prop="Email">
+                            <el-input v-model="formData.Email" clearable prefix-icon="el-icon-message"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="手机号" prop="PhoneNumber">
+                            <el-input v-model="formData.PhoneNumber" clearable prefix-icon="el-icon-mobile-phone"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-form-item label="出生年月" prop="Birth">
+                            <el-date-picker type="date" value-format="yyyy-MM-dd 00:00:00" placeholder="选择日期"
+                                v-model="formData.Birth" clearable style="width:100%"></el-date-picker>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="24">
+                        <el-form-item label="头像" prop="ImageUrls">
+                            <UploadImages v-model="formData.ImageUrls"></UploadImages>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+            </el-form>
+
+            <div class="form-actions">
+                <el-button type="primary" @click="CreateOrEdit" icon="el-icon-check">保 存 修 改</el-button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -46,7 +64,6 @@
 import store from "@/store/index.js"
 import { mapGetters } from "vuex";
 export default {
-
     computed: {
         ...mapGetters(["UserInfo", 'UserId'])
     },
@@ -55,89 +72,121 @@ export default {
             editShow: false,
             formData: {},
             rules: {
-                UserName: [
-                    { required: true, message: '请输入账号', trigger: 'blur' },
-                ],
-                Password: [
-                    { required: true, message: '请输入密码', trigger: 'blur' },
-                ],
+                UserName: [{ required: true, message: '请输入账号', trigger: 'blur' }],
                 Email: [
                     { required: true, message: '请输入邮箱', trigger: 'blur' },
                     {
                         validator: (rule, value, callback) => {
                             var reg = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
-                            if (!value || !reg.test(value)) {
-                                callback(new Error('请输入正确邮箱'));
-                            }
-                            else {
-                                callback();
-                            }
+                            if (!value || !reg.test(value)) callback(new Error('请输入正确邮箱'));
+                            else callback();
                         }, trigger: 'blur'
                     },
                 ],
-                Name: [
-                    { required: true, message: '请输入名称', trigger: 'blur' },
-                ],
+                Name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
                 PhoneNumber: [
                     { required: true, message: '请输入手机号码', trigger: 'blur' },
                     {
                         validator: (rule, value, callback) => {
                             var reg = /^1[34578]\d{9}$/;
-                            if (!value || !reg.test(value)) {
-                                callback(new Error('请输入正确的手机号'));
-                            }
-                            else {
-                                callback();
-                            }
+                            if (!value || !reg.test(value)) callback(new Error('请输入正确的手机号'));
+                            else callback();
                         }, trigger: 'blur'
                     },
                 ],
-                Birth: [
-                    { required: true, message: '请输入出生年月', trigger: 'blur' },
-                ],
-                ImageUrls: [
-                    { required: true, message: '请输入头像', trigger: 'blur' },
-                ],
+                Birth: [{ required: true, message: '请输入出生年月', trigger: 'blur' }],
+                ImageUrls: [{ required: true, message: '请上传头像', trigger: 'blur' }],
             },
-
         }
     },
     created() {
         this.ShowEditModal();
     },
     methods: {
-
-        //获取用户信息
         async ShowEditModal() {
-
             let { Data } = await this.$Post("/User/Get", { Id: this.UserId })
             this.formData = Data;
             this.editShow = true;
-
         },
-        //创建或者修改
         async CreateOrEdit() {
             this.$refs.editModalForm.validate(async (valid) => {
                 if (valid) {
-                    //保存数据到数据库
-                    let { Success, Msg, Data } = await this.$Post("/User/CreateOrEdit", this.formData);
+                    let { Success } = await this.$Post("/User/CreateOrEdit", this.formData);
                     if (Success) {
-
                         this.$message.success("修改成功!");
-
                         store.dispatch("GetInfo");
-
-
                     }
                 } else {
-                    console.log('error submit!!');
                     return false;
                 }
             });
         },
-
     }
 }
 </script>
 
-<style></style>
+<style scoped>
+.person-container {
+    max-width: 900px;
+    margin: 24px auto;
+    padding-bottom: 40px;
+}
+
+.profile-card {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 8px;
+}
+
+.user-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--slate-200);
+    box-shadow: var(--shadow-sm);
+}
+
+.avatar-placeholder {
+    background: linear-gradient(135deg, var(--primary-light), var(--primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 36px;
+}
+
+.username {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy-mid);
+}
+
+.usersub {
+    margin: 4px 0 0;
+    color: var(--slate-400);
+    font-size: 14px;
+}
+
+.profile-form {
+    margin-top: 8px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--slate-100);
+}
+</style>

@@ -1,15 +1,14 @@
 package com.studyroom.job;
 
-import com.studyroom.service.IntegralService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
+
+
 import org.springframework.stereotype.Component;
 
 @Component
 public class IntegralMockJob {
 
-    @Autowired
-    private IntegralService _IntegralService;
+//    @Autowired
+//    private IntegralService _IntegralService;
 
     /**
      * 每隔10s赠送积分

@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '@/store'
-import { Message } from 'element-ui'
-import { getToken, setToken, removeToken } from '@/utils/cache'
+import { getToken } from '@/utils/cache'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 

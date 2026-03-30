@@ -61,7 +61,7 @@ export default {
                         container: toolbarOptions, // 工具栏
 
                         handlers: {
-                            'image': function (value) {
+                            'image': function () {
                                 that.$refs["upload"].$refs["upload-inner"].handleClick()
                             }
                         }

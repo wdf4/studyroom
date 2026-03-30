@@ -1,44 +1,63 @@
 <template>
-    <div>
-        <el-page-header class="card margin-top-lg" @back="goBack" content="修改个人信息">
-        </el-page-header>
+  <div class="person-container margin-top-lg">
+    <el-page-header class="page-back" @back="goBack" content="个人信息＆头像"></el-page-header>
 
-        <el-card class="margin-top-lg">
-            <div>
-                <el-form ref="editModalForm" v-if="editShow == true" :model="formData" label-width="80px" size="mini"
-                    :rules="rules">
-                    <el-form-item label="账号" prop="UserName">
-                        <el-input v-model="formData.UserName" clearable :disabled="true"></el-input>
-                    </el-form-item>
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="avatar-area">
+          <img v-if="formData.ImageUrls" :src="formData.ImageUrls" class="user-avatar" />
+          <div v-else class="user-avatar avatar-placeholder">
+            <i class="el-icon-user"></i>
+          </div>
+        </div>
+        <div class="profile-meta">
+          <h2 class="username">{{ formData.Name || formData.UserName }}</h2>
+          <p class="usersub">{{ formData.UserName }}</p>
+        </div>
+      </div>
 
-                    <el-form-item label="邮箱" prop="Email">
-                        <el-input v-model="formData.Email" clearable> </el-input>
-                    </el-form-item>
-                    <el-form-item label="名称" prop="Name">
-                        <el-input v-model="formData.Name" clearable></el-input>
-                    </el-form-item>
-                    <el-form-item label="手机号码" prop="PhoneNumber">
-                        <el-input v-model="formData.PhoneNumber" clearable></el-input>
-                    </el-form-item>
-                    <el-form-item label="头像" prop="ImageUrls">
-                        <UploadImages v-model="formData.ImageUrls"></UploadImages>
-                    </el-form-item>
+      <el-divider></el-divider>
 
-                    <el-form-item label="出生年月" prop="Birth">
-                        <el-date-picker type="date" value-format="yyyy-MM-dd 00:00:00" placeholder="选择日期"
-                            v-model="formData.Birth" clearable></el-date-picker>
-                    </el-form-item>
+      <el-form ref="editModalForm" v-if="editShow == true" :model="formData" label-width="90px" size="medium" :rules="rules" class="profile-form">
+        <el-row :gutter="24">
+          <el-col :span="12">
+            <el-form-item label="账号" prop="UserName">
+              <el-input v-model="formData.UserName" clearable :disabled="true" prefix-icon="el-icon-user"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="姓名" prop="Name">
+              <el-input v-model="formData.Name" clearable prefix-icon="el-icon-s-custom"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="邮箱" prop="Email">
+              <el-input v-model="formData.Email" clearable prefix-icon="el-icon-message"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="手机号" prop="PhoneNumber">
+              <el-input v-model="formData.PhoneNumber" clearable prefix-icon="el-icon-mobile-phone"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="出生年月" prop="Birth">
+              <el-date-picker type="date" value-format="yyyy-MM-dd 00:00:00" placeholder="选择日期" v-model="formData.Birth" clearable style="width:100%"></el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="头像" prop="ImageUrls">
+              <UploadImages v-model="formData.ImageUrls"></UploadImages>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
 
-
-
-                </el-form>
-                <div style="display: flex;justify-content: flex-end;">
-                    <el-button type="primary" @click="CreateOrEdit">确 定</el-button>
-                </div>
-            </div>
-        </el-card>
-
+      <div class="form-actions">
+        <el-button type="primary" @click="CreateOrEdit" icon="el-icon-check">保 存 修 改</el-button>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -119,7 +138,7 @@ export default {
             this.$refs.editModalForm.validate(async (valid) => {
                 if (valid) {
                     //保存数据到数据库
-                    let { Success, Msg, Data } = await this.$Post("/User/CreateOrEdit", this.formData);
+                    let { Success } = await this.$Post("/User/CreateOrEdit", this.formData);
                     if (Success) {
 
                         this.$message.success("修改成功!");
@@ -142,4 +161,73 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.person-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 40px;
+}
+
+.page-back {
+  margin-bottom: 24px;
+  background: transparent;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
+  border: 1px solid #f1f5f9;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 8px;
+}
+
+.user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.avatar-placeholder {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 36px;
+}
+
+.username {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.usersub {
+  margin: 4px 0 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.profile-form {
+  margin-top: 8px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #f1f5f9;
+}
+</style>

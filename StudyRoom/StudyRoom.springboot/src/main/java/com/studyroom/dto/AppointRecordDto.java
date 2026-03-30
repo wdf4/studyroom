@@ -2,12 +2,6 @@ package com.studyroom.dto;
 
 import com.studyroom.enums.*;
 import com.studyroom.tools.dto.BaseDto;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -22,12 +16,12 @@ import java.lang.reflect.InvocationTargetException;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * 预约记录类
  */
 @Data
+@lombok.EqualsAndHashCode(callSuper = true)
 public class AppointRecordDto extends BaseDto {
 
 
@@ -136,7 +130,6 @@ public class AppointRecordDto extends BaseDto {
         return AppointStatusEnum.GetEnum(AppointStatus).toString();
     }
 
-    private String AppointStatusFormat;
 
 
     @JsonProperty("UserDto")

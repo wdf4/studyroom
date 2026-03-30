@@ -41,10 +41,13 @@ import com.studyroom.tools.dto.PagedResult;
 import com.studyroom.tools.exception.CustomException;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 预约记录功能实现类
  */
+@Slf4j
 @Service
 public class AppointRecordServiceImpl extends ServiceImpl<AppointRecordMapper, AppointRecord>
         implements AppointRecordService {
@@ -173,7 +176,7 @@ public class AppointRecordServiceImpl extends ServiceImpl<AppointRecordMapper, A
         items = DispatchItem(items);
 
         // 返回一个分页结构给前端
-        return PagedResult.GetInstance(items, totalCount);
+        return PagedResult.<AppointRecordDto>GetInstance(items, totalCount);
 
     }
 
@@ -292,6 +295,7 @@ public class AppointRecordServiceImpl extends ServiceImpl<AppointRecordMapper, A
     /**
      * 选座确认
      */
+    @Transactional
     @SneakyThrows
     @Override
     public AppointRecordDto ToOrder(AppointRecordDto input) {
@@ -368,6 +372,7 @@ public class AppointRecordServiceImpl extends ServiceImpl<AppointRecordMapper, A
     /**
      * 取消预约
      */
+    @Transactional
     @SneakyThrows
     @Override
     public void CancelAppoint(AppointRecordDto input) {
@@ -411,6 +416,7 @@ public class AppointRecordServiceImpl extends ServiceImpl<AppointRecordMapper, A
     /**
      * 评论评分
      */
+    @Transactional
     @SneakyThrows
     @Override
     public void Comment(AppointRecordDto input) {
@@ -430,6 +436,7 @@ public class AppointRecordServiceImpl extends ServiceImpl<AppointRecordMapper, A
     /**
      * 自动完成
      */
+    @Transactional
     @SneakyThrows
     @Override
     public void AutoCompletedAppoint() {
@@ -453,14 +460,15 @@ public class AppointRecordServiceImpl extends ServiceImpl<AppointRecordMapper, A
                 appointRecord.setAppointStatus(AppointStatusEnum.待评论.index());
             }
         }
-        if (appointRecords.size() > 0) {
-            _AppointRecordMpper.updateById(appointRecords);
+        if (!appointRecords.isEmpty()) {
+            updateBatchById(appointRecords);
         }
     }
 
     /**
      * 自动逾期
      */
+    @Transactional
     @SneakyThrows
     @Override
     public void AutoOverdueTimes() {
@@ -487,8 +495,8 @@ public class AppointRecordServiceImpl extends ServiceImpl<AppointRecordMapper, A
                 UpdateUserOverdueTimes(appointRecord.getUserId());
             }
         }
-        if (appointRecords.size() > 0) {
-            _AppointRecordMpper.updateById(appointRecords);
+        if (!appointRecords.isEmpty()) {
+            updateBatchById(appointRecords);
         }
     }
 

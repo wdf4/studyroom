@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view />
+    <transition name="fade" mode="out-in">
+      <router-view />
+    </transition>
   </div>
 </template>
 
@@ -19,12 +21,16 @@ export default {
 
 
 html,
-body {
-  background-color: rgb(247, 247, 247);
+body,
+#app {
+  background-color: var(--bg-color-main, #f8fafc);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 .bg-header {
-  background-color: #28b2d4;
+  background-color: #0f172a;
   display: flex;
   height: 60px;
   align-items: center;
@@ -42,11 +48,12 @@ body {
 
 
 .card {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+  box-shadow: var(--shadow-sm, 0 2px 4px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04));
   height: 100%;
-  border-radius: 10px;
+  border-radius: var(--radius-lg, 12px);
   padding: 20px;
-  background: white;
+  background: var(--white, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
 }
 
 

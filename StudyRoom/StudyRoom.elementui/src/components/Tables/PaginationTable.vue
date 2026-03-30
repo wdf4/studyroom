@@ -48,9 +48,7 @@
                         <el-table-column v-else-if="item.type == 9" v-bind="item" align="center" :key="item.type"
                             :prop="item.key" :label="item.title" :width="item.width || 'auto'">
                             <template slot-scope="{ row }">
-                                <template v-for="(tagItem, tagIndex) in row[item.key]">
-                                    <el-tag type="primary">{{ tagItem }}</el-tag>
-                                </template>
+                                <el-tag v-for="tagItem in row[item.key]" :key="tagItem" type="primary">{{ tagItem }}</el-tag>
                             </template>
                         </el-table-column>
                         <el-table-column v-else-if="item.type == 10" v-bind="item" align="center" :key="'POPOVER' + idx"
@@ -70,7 +68,7 @@
                             :prop="item.key" :label="item.title" :width="item.width || 'auto'" align="center">
                             <template slot-scope="{ row }">
 
-                                <el-image v-for="(image, idx) in row[`${item.key}`]" style="width: 50px; height: 40px"
+                                <el-image v-for="(image, idx) in row[`${item.key}`]" :key="idx" style="width: 50px; height: 40px"
                                     :src="image" :preview-src-list="row[`${item.key}`]" fit="scale-down">
                                     <div slot="error" class="image-slot">
                                         <i class="el-icon-picture-outline"></i>
@@ -147,6 +145,7 @@
                         </el-table-column>
                     </template>
                 </el-table>
+                <el-empty v-if="datalist.length === 0 && !listLoading" description="暂无数据"></el-empty>
                 <div class="custom-pagination">
                     <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange"
                         :current-page="pagination.page" :page-sizes="pagination.pageSizes" :page-size="pagination.limit"
@@ -165,7 +164,6 @@ import { ReplaceImageHttp } from "@/utils/comm";
 import store from "@/store";
 import VideoButton from "./VideoButton.vue"
 import RichButton from "./RichButton.vue"
-import AudioButton from "./AudioButton.vue"
 import FilesLinkButton from "./FilesLinkButton.vue"
 
 
@@ -174,7 +172,6 @@ export default {
     components: {
         VideoButton,
         RichButton,
-        AudioButton,
         FilesLinkButton
     },
     props: {
@@ -304,7 +301,7 @@ export default {
             if (!name) {
                 return undefined;
             }
-            if (!obj) { return undefined };
+            if (!obj) { return undefined }
             if (name.indexOf(".") != -1) {
                 var array = name.split(".");
 

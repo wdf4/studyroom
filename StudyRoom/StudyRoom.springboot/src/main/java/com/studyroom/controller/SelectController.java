@@ -3,14 +3,12 @@ package com.studyroom.controller;
 import com.studyroom.enums.*;
 import com.studyroom.tools.dto.PagedResult;
 import com.studyroom.tools.dto.SelectResult;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/Select")

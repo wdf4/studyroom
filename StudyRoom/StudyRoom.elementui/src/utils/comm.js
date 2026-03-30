@@ -1,4 +1,4 @@
-import { Message, MessageBox, Loading } from "element-ui"; //消息提示框
+import { Message, MessageBox } from "element-ui"; //消息提示框
 import store from "@/store";
 import router from "@/router";
 
@@ -12,7 +12,7 @@ export function ConfirmMessageBox(config) {
     title: config.title || "提示",
     content: config.content || "",
   };
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     MessageBox.confirm(_config.content, _config.title, {
       confirmButtonText: "确定",
       cancelButtonText: "取消",

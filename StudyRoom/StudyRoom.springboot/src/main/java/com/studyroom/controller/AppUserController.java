@@ -11,6 +11,7 @@ import com.studyroom.tools.dto.PagedResult;
 import com.studyroom.tools.dto.ResponseData;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -78,9 +79,9 @@ public class AppUserController {
      * 用户登录
      */
     @RequestMapping(value = "/SignIn", method = RequestMethod.POST)
-    public ResponseData<String> SignIn(@RequestBody AppUserDto input, HttpServletRequest request) {
+    public ResponseData<String> SignIn(@RequestBody @Valid AppUserDto input, HttpServletRequest request) {
         String token = _AppUserService.SignIn(input);
-        return ResponseData.GetResponseDataInstance(token, "登录成功", true);
+        return ResponseData.<String>GetResponseDataInstance(token, "登录成功", true);
     }
 
     /**
@@ -120,10 +121,17 @@ public class AppUserController {
      * 用户注册接口
      */
     @RequestMapping(value = "/Register", method = RequestMethod.POST)
-    public AppUserDto Register(@RequestBody AppUserDto input) throws Exception {
-
+    public AppUserDto Register(@RequestBody @Valid AppUserDto input) throws Exception {
         return _AppUserService.Register(input);
+    }
 
+    /**
+     * 修改密码接口
+     */
+    @RequestMapping(value = "/ChangePassword", method = RequestMethod.POST)
+    public ResponseData<Void> ChangePassword(@RequestBody AppUserDto input) {
+        _AppUserService.ChangePassword(input);
+        return ResponseData.<Void>GetResponseDataInstance(null, "密码修改成功", true);
     }
 
     /**

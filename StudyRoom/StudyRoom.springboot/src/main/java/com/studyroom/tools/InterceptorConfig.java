@@ -12,39 +12,35 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 
-
     /**
-     * 配置切面
-     * @param registry
+     * 配置拦截器（/Captcha/** 无需JWT，加入白名单）
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-
-        //获取当前上下文用户信息拦截器
         registry.addInterceptor(new CurrentUserInterceptor())
-                .addPathPatterns("/**");
+                .addPathPatterns("/**")
+                .excludePathPatterns("/Captcha/**");
     }
+
     /**
-     * 配置前后端跨域报错的问题
-     * @param registry
+     * 配置跨域（allowCredentials 支持 Session cookie 跨域传递）
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOriginPatterns("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*");
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
+
     /**
      * 资源的配置处理
      */
+    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        //获取项目运行的绝对路径
         String filePath = System.getProperty("user.dir");
-        //定义一个存放图片的文件目录
-        String localtion="file:"+filePath+"\\src\\main\\resources\\static\\";
-        // 只要是/images/** 开头的请求网址  都会去上面的localtion中寻找资讯
-        registry.addResourceHandler("/**").
-                addResourceLocations(localtion);
+        String location = "file:" + filePath + "\\src\\main\\resources\\static\\";
+        registry.addResourceHandler("/**").addResourceLocations(location);
     }
 }

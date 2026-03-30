@@ -1,22 +1,12 @@
 package com.studyroom.tools;
 
-import com.auth0.jwt.exceptions.AlgorithmMismatchException;
-import com.auth0.jwt.exceptions.SignatureVerificationException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.studyroom.SysConst;
-
 import com.studyroom.enums.RoleTypeEnum;
 import com.studyroom.tools.dto.CurrentUserDto;
-import com.studyroom.tools.dto.ResponseData;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 解析当前token的用户信息 存到线程中

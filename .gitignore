@@ -24,3 +24,19 @@ mvnw.cmd
 
 # MySQL data (local)
 mysql_data/
+
+# Claude AI session files
+.claude/
+
+# Compiled class files at root
+*.class
+BCryptGen.java
+
+# Temporary debug/log files
+backend_err_retry.txt
+backend_log_retry.txt
+
+# Root-level node artifacts (not part of the project)
+/node_modules/
+/package.json
+/package-lock.json

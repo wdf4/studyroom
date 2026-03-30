@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 
 @Data
+@lombok.EqualsAndHashCode(callSuper = true)
 @TableName("AppUser")
 public class AppUser extends BaseEntity {
 

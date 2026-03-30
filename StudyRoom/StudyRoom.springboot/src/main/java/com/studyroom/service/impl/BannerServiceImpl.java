@@ -94,7 +94,7 @@ public class BannerServiceImpl extends ServiceImpl<BannerMapper, Banner> impleme
 
 
         //返回一个分页结构给前端
-        return PagedResult.GetInstance(items, totalCount);
+        return PagedResult.<BannerDto>GetInstance(items, totalCount);
 
     }
 

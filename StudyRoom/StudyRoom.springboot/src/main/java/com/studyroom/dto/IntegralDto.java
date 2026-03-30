@@ -12,6 +12,7 @@ import java.lang.reflect.InvocationTargetException;
  * 积分类
  */
 @Data
+@lombok.EqualsAndHashCode(callSuper = true)
 public class IntegralDto extends BaseDto {
 
 

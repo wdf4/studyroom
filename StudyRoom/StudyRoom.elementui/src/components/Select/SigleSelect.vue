@@ -1,6 +1,6 @@
 <template>
-    <el-select style="width: 100%;" :disabled="disabled" v-model="selectValue" filterable placeholder="请选择"
-        :filterable="true" :loading="loading" :clearable="true" :remote="true" @change="Change">
+    <el-select style="width: 100%;" :disabled="disabled" v-model="selectValue" :filterable="true" placeholder="请选择"
+        :loading="loading" :clearable="true" :remote="true" @change="Change">
         <el-option v-for="item in options" :key="item.value" :label="item.name" :value="item.value">
             <span style="float: left">{{ item.name }}</span>
             <span style="float: right; color: #8492a6; font-size: 14px">{{ item.label }}</span>
@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import store from "@/store";
 export default {
 
     props: {
@@ -49,7 +48,7 @@ export default {
     watch: {
         "value": {
             immediate: true, //该回调将会在侦听开始之后被立即调用
-            handler: function (n, o) {
+            handler: function (n) {
                 if (n?.toString()?.length > 0) {
                     this.selectValue = n.toString();
                 }
@@ -104,7 +103,7 @@ export default {
             });
             this.loading = false;
             let dataList = [];
-            Items.forEach((item, index) => {
+            Items.forEach((item) => {
                 if (this.filterValue.find(x => x == item[`${this.columnValue}`]?.toString()) == null) {
                     dataList.push({
                         name: item[`${this.columnName}`],

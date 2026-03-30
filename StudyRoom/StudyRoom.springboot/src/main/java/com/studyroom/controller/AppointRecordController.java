@@ -1,33 +1,14 @@
 package com.studyroom.controller;
 
-import com.studyroom.SysConst;
 import com.studyroom.dto.*;
 import com.studyroom.dto.query.*;
-import com.studyroom.entity.*;
-import com.studyroom.mapper.*;
 import com.studyroom.service.*;
 import com.studyroom.tools.dto.*;
-import com.studyroom.tools.exception.CustomException;
-import jakarta.servlet.http.HttpServletRequest;
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import lombok.SneakyThrows;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.stream.Collectors;
-
-import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * 预约记录控制器
@@ -37,8 +18,6 @@ import jakarta.servlet.http.HttpServletResponse;
 public class AppointRecordController {
     @Autowired()
     private AppointRecordService _AppointRecordService;
-    @Autowired()
-    private AppointRecordMapper _AppointRecordMapper;
 
     /**
      * 预约记录分页查询

@@ -1,12 +1,20 @@
 <template>
-    <div>
-        <el-page-header class="card margin-top-lg" @back="goBack" content="确定选座">
+    <div class="order-container">
+        <el-page-header class="order-page-back margin-top-lg" @back="goBack" content="确定选座">
         </el-page-header>
 
-        <div class="margin-top-lg card">
+        <div class="order-card margin-top-lg">
+            <div class="order-header">
+                <i class="el-icon-date order-icon"></i>
+                <div>
+                    <h3 class="order-title">预约确认</h3>
+                    <p class="order-sub">请确认预约信息后提交</p>
+                </div>
+            </div>
+            <el-divider></el-divider>
             <el-form v-if="editorShow == true" ref="editModalForm" :rules="editModalFormRules" :model="formData"
-                label-width="140px" size="mini">
-                <el-row :gutter="10" class="EditFromBody">
+                label-width="140px" size="small">
+                <el-row :gutter="16" class="EditFromBody">
 
 
                     <el-col :span="24">
@@ -55,17 +63,15 @@
 
                 <el-row type="flex" justify="end" align="bottom">
                     <el-form-item>
-                        <el-button type="primary" size="large" @click="ToOrder()">确 定</el-button>
+                        <el-button type="primary" size="large" :loading="submitting" @click="ToOrder()">确 定</el-button>
                     </el-form-item>
                 </el-row>
             </el-form>
         </div>
-
     </div>
 </template>
 
 <script>
-import store from '@/store';
 import { mapGetters } from 'vuex'
 export default {
     computed: {
@@ -125,6 +131,7 @@ export default {
 
             },//保存或者修改定义的数据对象
             editorShow: true,
+            submitting: false,
         }
     },
     created() {
@@ -146,15 +153,20 @@ export default {
         async ToOrder() {
             this.$refs.editModalForm.validate(async (valid) => {
                 if (valid) {
-                    let { Success } = await this.$Post("/AppointRecord/ToOrder", this.formData);
-                    if (Success) {
-                        //跳转到下一个页面
-                        this.$router.push({
-                            path: "/Front/AppointRecordList"
-                        })
+                    this.submitting = true;
+                    try {
+                        let { Success } = await this.$Post("/AppointRecord/ToOrder", this.formData);
+                        if (Success) {
+                            //跳转到下一个页面
+                            this.$router.push({
+                                path: "/Front/AppointRecordList"
+                            })
+                        }
+                    } finally {
+                        this.submitting = false;
                     }
                 } else {
-
+                    this.$message.error("请检查表单填写是否正确");
                     return false;
                 }
             });
@@ -167,4 +179,50 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.order-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+.order-page-back {
+    background: transparent;
+}
+
+.order-card {
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+}
+
+.order-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.order-icon {
+    font-size: 32px;
+    color: var(--primary);
+    background: var(--primary-glow);
+    padding: 12px;
+    border-radius: var(--radius-md);
+}
+
+.order-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy-mid);
+}
+
+.order-sub {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--slate-500);
+}
+</style>

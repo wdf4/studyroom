@@ -4,16 +4,9 @@ import com.studyroom.dto.*;
 import com.studyroom.dto.query.*;
 import com.studyroom.entity.*;
 import com.studyroom.tools.dto.*;
-import com.studyroom.enums.*;
 import java.lang.reflect.InvocationTargetException;
-
-import lombok.SneakyThrows;
-import org.springframework.web.bind.annotation.RequestParam;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-
-import jakarta.servlet.http.HttpServletResponse;
 /**
  * 座位功能的Service接口的定义清单
  */
@@ -36,7 +29,6 @@ public interface SeatService extends IService<Seat> {
     /**
      * 批量创建座位
      */
-    @SneakyThrows
     void BatchCreate(List<SeatDto> inputs);
 
     /**

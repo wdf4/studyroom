@@ -1,12 +1,15 @@
 <template>
     <div>
         <el-card class="box-card">
-            <div slot="header" class="clearfix">
-                <el-button type="primary" size="mini" icon="el-icon-search" @click="SearchClick">搜 索</el-button>
-                <el-button type="warning" size="mini" @click="ResetClick" icon="el-icon-s-promotion">重 置</el-button>
+            <div slot="header" class="filter-header">
+                <span class="filter-title">预约状态分析</span>
+                <div class="filter-actions">
+                    <el-button type="primary" size="mini" icon="el-icon-search" @click="SearchClick">搜 索</el-button>
+                    <el-button type="warning" size="mini" @click="ResetClick" icon="el-icon-s-promotion">重 置</el-button>
+                </div>
             </div>
             <div class="tb-body">
-                <el-form ref="searchFormRef" :model="searchForm" :inline="true" label-width="120px" :style="`flex:1;`">
+                <el-form ref="searchFormRef" :model="searchForm" :inline="true" label-width="120px">
                     <el-form-item label="时间范围">
                         <el-date-picker v-model="searchForm.DateRange" type="datetimerange" start-placeholder="起始时间"
                             end-placeholder="结束时间" :default-time="['00:00:00']" value-format="yyyy-MM-dd HH:mm:ss">
@@ -18,14 +21,13 @@
         </el-card>
 
         <el-row :gutter="10">
-            <el-col :span="6" v-for="(item, index) in DataList" :ley="index">
+            <el-col :span="6" v-for="(item, index) in DataList" :key="index">
                 <el-card class="box-card margin-top-lg">
                     <div slot="header" class="clearfix">
                         <span>{{ item.Room.Name }}</span>
 
                     </div>
-                    <div class="echart" :id="'echartDiv' + item.Room.Id"
-                        :style="{ float: 'left', width: '100%', height: '500px' }">
+                    <div class="echart" :id="'echartDiv' + item.Room.Id" class="chart-area">
                     </div>
                 </el-card>
             </el-col>
@@ -134,4 +136,9 @@ export default {
 </script>
 
 
-<style scoped></style>
+<style scoped>
+.chart-area {
+    width: 100%;
+    height: 420px;
+}
+</style>

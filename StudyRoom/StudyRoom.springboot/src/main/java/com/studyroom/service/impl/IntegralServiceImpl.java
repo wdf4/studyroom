@@ -21,8 +21,10 @@ import com.studyroom.tools.dto.IdsInput;
 import com.studyroom.tools.dto.PagedResult;
 import com.studyroom.tools.exception.CustomException;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
@@ -33,6 +35,7 @@ import java.util.*;
 /**
  * 积分功能实现类
  */
+@Slf4j
 @Service
 public class IntegralServiceImpl extends ServiceImpl<IntegralMapper, Integral> implements IntegralService {
 
@@ -185,6 +188,7 @@ public class IntegralServiceImpl extends ServiceImpl<IntegralMapper, Integral> i
     /**
      * 清空逾期次数
      */
+    @Transactional
     @Override
     public void OverdueTimesClear() {
         CurrentUserDto currentUserDto = BaseContext.getCurrentUserDto();
@@ -222,6 +226,7 @@ public class IntegralServiceImpl extends ServiceImpl<IntegralMapper, Integral> i
     /**
      * 登录赠送积分
      */
+    @Transactional
     @Override
     public void SignGiveIntegral() {
         CurrentUserDto currentUserDto = BaseContext.getCurrentUserDto();
@@ -296,7 +301,7 @@ public class IntegralServiceImpl extends ServiceImpl<IntegralMapper, Integral> i
     public void MockIntegralValue() {
         //得到今天的日期
         LocalDateTime now = LocalDate.now().atTime(0, 0, 0);
-        List<Integral> integrals = _IntegralMpper.selectList(null);
+
 
         List<AppUser> appUsers = _AppUserMapper.selectList(null);
 

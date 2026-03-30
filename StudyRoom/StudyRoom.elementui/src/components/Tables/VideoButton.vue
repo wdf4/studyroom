@@ -15,7 +15,6 @@
 import {
     GetFileNameByPath
 } from "@/utils/comm"
-import store from "@/store";
 export default {
 
     props: {

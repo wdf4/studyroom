@@ -14,6 +14,7 @@ import java.util.List;
  */
 @NoArgsConstructor
 @Data
+@lombok.EqualsAndHashCode(callSuper = true)
 public class AppointRecordPagedInput extends PagedInput {
 
     /**

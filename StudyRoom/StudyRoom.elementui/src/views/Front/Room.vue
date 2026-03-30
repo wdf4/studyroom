@@ -15,21 +15,23 @@
 
                         <h4>先选择日期</h4>
                         <el-tabs v-model="SelectDate" @tab-click="DateHandleClick">
-                            <el-tab-pane :label="item" :name="item" v-for="(item, index) in DateList"></el-tab-pane>
+                            <el-tab-pane :label="item" :name="item" v-for="item in DateList" :key="item"></el-tab-pane>
 
                         </el-tabs>
 
                         <template v-if="SeatArrange">
                             <h4>上午</h4>
+                            <div class="legend-area">
+                                <span class="legend-item"><div class="modern-seat seat-available legend-box"></div> 可预约空气位</span>
+                                <span class="legend-item"><div class="modern-seat seat-occupied legend-box"></div> 已被预约沉浸位</span>
+                            </div>
                             <em class="tip">如果有人提前离开了,座位是会被释放的</em>
                             <el-empty v-if="SeatArrange.AmSeatDtoList.length == 0" description="暂时没有数据"></el-empty>
                             <div class="seat-list">
-                                <div class="seat-row" v-for="(row, rowIndex) in SeatArrange.AmSeatDtoList">
-                                    <div class="seat-col" v-for="(col, colIndex) in row">
-                                        <div v-if="col.Id" @click="ToAppoint(col, 1)">
-                                            <img v-if="col.IsOccupy == false" :src="require('@/assets/seat.png')">
-                                            <img v-else :src="require('@/assets/seatcked.png')">
-                                            <div class="tit"><span>{{ col.No }}</span></div>
+                                <div class="seat-row" v-for="(row, rowIndex) in SeatArrange.AmSeatDtoList" :key="rowIndex">
+                                    <div class="seat-col" v-for="(col, colIndex) in row" :key="colIndex">
+                                        <div v-if="col.Id" @click="ToAppoint(col, 1)" class="modern-seat" :class="{ 'seat-occupied': col.IsOccupy, 'seat-available': !col.IsOccupy }">
+                                            <div class="tit">{{ col.No }}</div>
                                         </div>
 
                                     </div>
@@ -42,12 +44,10 @@
                             <em class="tip">如果有人提前离开了,座位是会被释放的</em>
                             <el-empty v-if="SeatArrange.PmSeatDtoList.length == 0" description="暂时没有数据"></el-empty>
                             <div class="seat-list">
-                                <div class="seat-row" v-for="(row, rowIndex) in SeatArrange.PmSeatDtoList">
-                                    <div class="seat-col" v-for="(col, colIndex) in row">
-                                        <div v-if="col.Id" @click="ToAppoint(col, 2)">
-                                            <img v-if="col.IsOccupy == false" :src="require('@/assets/seat.png')">
-                                            <img v-else :src="require('@/assets/seatcked.png')">
-                                            <div class="tit"><span>{{ col.No }}</span></div>
+                                <div class="seat-row" v-for="(row, rowIndex) in SeatArrange.PmSeatDtoList" :key="rowIndex">
+                                    <div class="seat-col" v-for="(col, colIndex) in row" :key="colIndex">
+                                        <div v-if="col.Id" @click="ToAppoint(col, 2)" class="modern-seat" :class="{ 'seat-occupied': col.IsOccupy, 'seat-available': !col.IsOccupy }">
+                                            <div class="tit">{{ col.No }}</div>
                                         </div>
 
                                     </div>
@@ -59,12 +59,10 @@
                             <em class="tip">如果有人提前离开了,座位是会被释放的</em>
                             <el-empty v-if="SeatArrange.NmSeatDtoList.length == 0" description="暂时没有数据"></el-empty>
                             <div class="seat-list">
-                                <div class="seat-row" v-for="(row, rowIndex) in SeatArrange.NmSeatDtoList">
-                                    <div class="seat-col" v-for="(col, colIndex) in row">
-                                        <div v-if="col.Id" @click="ToAppoint(col, 3)">
-                                            <img v-if="col.IsOccupy == false" :src="require('@/assets/seat.png')">
-                                            <img v-else :src="require('@/assets/seatcked.png')">
-                                            <div class="tit"><span>{{ col.No }}</span></div>
+                                <div class="seat-row" v-for="(row, rowIndex) in SeatArrange.NmSeatDtoList" :key="rowIndex">
+                                    <div class="seat-col" v-for="(col, colIndex) in row" :key="colIndex">
+                                        <div v-if="col.Id" @click="ToAppoint(col, 3)" class="modern-seat" :class="{ 'seat-occupied': col.IsOccupy, 'seat-available': !col.IsOccupy }">
+                                            <div class="tit">{{ col.No }}</div>
                                         </div>
 
                                     </div>
@@ -113,7 +111,6 @@
 </template>
 
 <script>
-import store from '@/store';
 import { mapGetters } from 'vuex';
 import Pagination from "@/components/Pagination/PaginationBox.vue"
 export default {
@@ -161,8 +158,7 @@ export default {
             this.SeatArrange = Data;
         },
         //选中日期
-        async DateHandleClick(e) {
-            console.log(e)
+        async DateHandleClick() {
             this.GetArrange();
         },
         //返回上一个页面
@@ -209,10 +205,10 @@ export default {
 
 <style scoped>
 .content {
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 14px;
     line-height: 2.5;
-    color: #333;
+    color: var(--slate-700, #334155);
 }
 
 .seat-list {
@@ -228,20 +224,92 @@ export default {
 }
 
 .seat-list .seat-row .seat-col {
-    margin-top: 20px;
-    margin-left: 20px;
+    margin-top: 15px;
+    margin-left: 15px;
     width: 60px;
-    height: 70px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.seat-list .seat-row .seat-col img {
-    width: 50px;
-    height: 50px;
-    pointer-events: none;
+.modern-seat {
+    width: 44px;
+    height: 48px;
+    border-radius: 10px 10px 6px 6px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
-.seat-list .seat-row .seat-col .tit {
-    font-weight: bold;
+.modern-seat::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    right: 4px;
+    height: 6px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.25);
+}
+
+.seat-available {
+    background: linear-gradient(145deg, #3b82f6, #2563eb);
+    color: white;
+}
+
+.seat-available:hover {
+    transform: translateY(-6px) scale(1.08);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4);
+}
+
+.seat-occupied {
+    background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
+    color: #94a3b8;
+    cursor: not-allowed;
+    border: 1px solid #cbd5e1;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.seat-occupied::after {
+    background: rgba(0,0,0,0.05);
+}
+
+.modern-seat .tit {
+    font-weight: 700;
+    font-size: 13px;
+    z-index: 10;
+}
+
+.legend-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding: 12px 18px;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.legend-box {
+    transform: scale(0.65);
+    margin-right: 8px;
+}
+.legend-box:hover {
+    transform: scale(0.65) !important;
+    box-shadow: none !important;
 }
 
 
@@ -253,7 +321,7 @@ export default {
 .comment-list .comment-item {
     display: flex;
     margin-bottom: 15px;
-    border-bottom: 1px dashed rgb(129, 127, 127);
+    border-bottom: 1px solid var(--slate-200, #e2e8f0);
 
 }
 
@@ -273,13 +341,11 @@ export default {
 .comment-list .comment-item .seat {
     font-size: 13px;
     margin-left: 10px;
-    color: #333;
-
-
+    color: var(--slate-500, #64748b);
 }
 
 .tip {
-    color: red;
-    font-size: 12px;
+    color: #ef4444;
+    font-size: 13px;
 }
 </style>

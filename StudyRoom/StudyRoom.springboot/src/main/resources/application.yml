@@ -10,8 +10,8 @@ spring:
       max-request-size: 10000MB #请求的最大报文长度不能超过10000MB
       max-file-size: 10024MB #上传的文件最大不能超过10024MB
   datasource: #数据库的配置
-    username: root #数据库的账号
-    password: 123456 #数据库的密码
+    username: ${DB_USERNAME:root} #数据库的账号
+    password: ${DB_PASSWORD:123456} #数据库的密码
     url: jdbc:mysql://localhost:3306/studyroom?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
   jackson: # json序列号配置
     property-naming-strategy: UPPER_CAMEL_CASE #设置大写开头的命名风格
@@ -24,6 +24,11 @@ mybatis-plus: #操作数据库的ORM框架 mybatis
     db-config:    #数据库的配置
       table-prefix:   #表前面是否加前缀  如果不配置为空 会导致查询的sql表前面带有特定 前缀
   configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
     map-underscore-to-camel-case: false         #是否转换成大小写
   type-aliases-package: com.studyroom.entity  #实体存储的包位置
+
+studyroom:
+  jwt:
+    secret: ${JWT_SECRET:StudyRoom@Dev2024!ChangeInProduction}
+    expiry-days: ${JWT_EXPIRY_DAYS:7}

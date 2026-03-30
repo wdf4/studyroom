@@ -12,6 +12,7 @@ import java.lang.reflect.InvocationTargetException;
  * 自习室类
  */
 @Data
+@lombok.EqualsAndHashCode(callSuper = true)
 public class RoomDto extends BaseDto {
 
 

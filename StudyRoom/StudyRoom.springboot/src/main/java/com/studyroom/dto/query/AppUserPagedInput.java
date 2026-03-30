@@ -1,13 +1,10 @@
 package com.studyroom.dto.query;
 import com.studyroom.tools.dto.PagedInput;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
+@lombok.EqualsAndHashCode(callSuper = true)
 public class AppUserPagedInput  extends PagedInput {
     private Integer Id;
 
