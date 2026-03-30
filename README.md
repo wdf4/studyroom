@@ -11,7 +11,7 @@
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
-[功能特性](#功能特性) · [技术栈](#技术栈) · [快速开始](#快速开始) · [项目结构](#项目结构) · [接口文档](#接口说明) · [部署指南](#部署指南)
+[功能特性](#功能特性) · [技术栈](#技术栈) · [快速开始](#快速开始) · [项目结构](#项目结构) · [接口文档](#接口说明) · [部署指南](#部署指南) · [📖 开发文档](DEVELOPMENT.md)
 
 </div>
 
